@@ -33,6 +33,6 @@ RUN curl -L -O "https://downloads.sourceforge.net/project/sbcl/sbcl/${SBCL_VERSI
 
 ADD run.sh /usr/bin/run.sh
 
-ENV PATH="${PATH}:/home/ocicl/bin:/home/ocicl/go/bin"
+ENV PATH="${PATH}:/home/ocicl/.local/bin:/home/ocicl/bin:/home/ocicl/go/bin"
 
 CMD /usr/bin/run.sh
