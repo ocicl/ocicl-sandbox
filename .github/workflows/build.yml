@@ -24,6 +24,5 @@ jobs:
       - name: Build and push Docker image
         uses: docker/build-push-action@v2
         with:
-          context: .
           push: true
-          tags: ghcr.io/ocicl/ocicl-sandbox:latest
+          tags: ocicl/ocicl-sandbox:latest
