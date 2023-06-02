@@ -1,0 +1,34 @@
+FROM ubuntu
+
+MAINTAINER Anthony Green <green@moxielogic.com>
+
+ENV LC_ALL=C.utf8 \
+    LANG=C.utf8 \
+    LANGUAGE=C.utf8 \
+    SBCL_VERSION=2.3.4
+
+RUN apt-get update \
+    && apt-get install -y libffi-dev libclblas-dev libuv1-dev \
+                          libev-dev libglu-dev freeglut3-dev libgl1-mesa-dev libglfw3-dev \
+                          libunac1-dev libtidy-dev libfixposix-dev golang \
+                          ca-certificates curl
+
+ARG USERNAME=ocicl
+ARG USER_UID=1000
+ARG USER_GID=$USER_UID
+RUN groupadd --gid $USER_GID $USERNAME \
+    && useradd --uid $USER_UID --gid $USER_GID -m $USERNAME
+
+USER $USERNAME
+
+WORKDIR /home/ocicl
+
+RUN go install -v github.com/sigstore/rekor/cmd/rekor-cli@latest
+RUN curl -L -O "https://downloads.sourceforge.net/project/sbcl/sbcl/${SBCL_VERSION}/sbcl-${SBCL_VERSION}-x86-64-linux-binary.tar.bz2" \
+    && tar -xf sbcl-${SBCL_VERSION}-x86-64-linux-binary.tar.bz2 \
+    && cd sbcl-${SBCL_VERSION}-x86-64-linux \
+    && ./install.sh --prefix=$HOME \
+    && cd .. \
+    && rm -rf sbcl-${SBCL_VERSION}-x86-64-linux-binary.tar.bz2 sbcl-${SBCL_VERSION}-x86-64-linux
+
+ENV PATH="${PATH}:/home/ocicl/bin:/home/ocicl/go/bin"
