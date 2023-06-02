@@ -13,15 +13,7 @@ RUN apt-get update \
                           libunac1-dev libtidy-dev libfixposix-dev golang \
                           ca-certificates curl git make
 
-ARG USERNAME=ocicl
-ARG USER_UID=1000
-ARG USER_GID=$USER_UID
-RUN groupadd --gid $USER_GID $USERNAME \
-    && useradd --uid $USER_UID --gid $USER_GID -m $USERNAME
-
-USER $USERNAME
-
-WORKDIR /home/ocicl
+WORKDIR /github/workdir
 
 RUN go install -v github.com/sigstore/rekor/cmd/rekor-cli@latest
 RUN curl -L -O "https://downloads.sourceforge.net/project/sbcl/sbcl/${SBCL_VERSION}/sbcl-${SBCL_VERSION}-x86-64-linux-binary.tar.bz2" \
@@ -33,6 +25,6 @@ RUN curl -L -O "https://downloads.sourceforge.net/project/sbcl/sbcl/${SBCL_VERSI
 
 ADD run.sh /usr/bin/run.sh
 
-ENV PATH="${PATH}:/home/ocicl/.local/bin:/home/ocicl/bin:/home/ocicl/go/bin"
+ENV PATH="${PATH}:${HOME}/.local/bin:${HOME}/bin:${HOME}/go/bin"
 
 CMD /usr/bin/run.sh
