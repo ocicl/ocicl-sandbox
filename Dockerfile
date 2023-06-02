@@ -25,6 +25,6 @@ RUN curl -L -O "https://downloads.sourceforge.net/project/sbcl/sbcl/${SBCL_VERSI
 
 ADD run.sh /usr/bin/run.sh
 
-ENV PATH="${PATH}:${HOME}/.local/bin:${HOME}/bin:${HOME}/go/bin"
+ENV PATH="${PATH}:/root/.local/bin:/root/bin:/root/go/bin"
 
 CMD /usr/bin/run.sh
