@@ -11,7 +11,7 @@ RUN apt-get update \
     && apt-get install -y libffi-dev libclblas-dev libuv1-dev \
                           libev-dev libglu-dev freeglut3-dev libgl1-mesa-dev libglfw3-dev \
                           libunac1-dev libtidy-dev libfixposix-dev golang \
-                          ca-certificates curl
+                          ca-certificates curl git make
 
 ARG USERNAME=ocicl
 ARG USER_UID=1000
