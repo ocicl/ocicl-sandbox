@@ -1,14 +1,11 @@
 #!/bin/sh
 
-set -x
-
 (cd ~; git clone --depth=1 https://github.com/ocicl/ocicl.git; cd ocicl; make; make install; ocicl version; ocicl setup > ~/.sbclrc)
 echo "(setf ocicl-runtime:*verbose* t)" >> ~/.sbclrc
 echo "(setf ocicl-runtime:*download* t)" >> ~/.sbclrc
 ~/bin/sbcl --non-interactive --eval "(quit)"
 
 cd /github/workspace
-ls -l
 
 grep "| source" README.org;
 if [ $? -eq 0 ]; then
@@ -19,7 +16,7 @@ if [ $? -eq 0 ]; then
     mkdir src
     cd src
     case ${PROTOCOL} in
-        git) git clone ${URI} ;
+        git) git clone --depth=1 ${URI} ;
              VERSION=$(date +%Y%m%d)-$(grep "| commit" ../README.org | awk '{ print $4 }') ;
              SRCDIR=$(ls) ;
              mv ${SRCDIR} ${NAME}-${VERSION} ;
