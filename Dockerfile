@@ -13,7 +13,7 @@ RUN apt-get update \
                           libunac1-dev libtidy-dev libfixposix-dev golang \
                           ca-certificates curl git make
 
-WORKDIR /github/workdir
+WORKDIR /github/workspace
 
 RUN go install -v github.com/sigstore/rekor/cmd/rekor-cli@latest
 RUN curl -L -O "https://downloads.sourceforge.net/project/sbcl/sbcl/${SBCL_VERSION}/sbcl-${SBCL_VERSION}-x86-64-linux-binary.tar.bz2" \
