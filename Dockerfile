@@ -31,4 +31,8 @@ RUN curl -L -O "https://downloads.sourceforge.net/project/sbcl/sbcl/${SBCL_VERSI
     && cd .. \
     && rm -rf sbcl-${SBCL_VERSION}-x86-64-linux-binary.tar.bz2 sbcl-${SBCL_VERSION}-x86-64-linux
 
+ADD run.sh /usr/bin/run.sh
+
 ENV PATH="${PATH}:/home/ocicl/bin:/home/ocicl/go/bin"
+
+CMD /usr/bin/run.sh
