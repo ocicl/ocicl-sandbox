@@ -8,6 +8,10 @@ on:
 jobs:
 
   docker:
+
+    permissions:
+      packages: write
+
     runs-on: ubuntu-latest
 
     steps:
@@ -22,7 +26,7 @@ jobs:
           password: ${{ github.token }}
 
       - name: Build and push Docker image
-        uses: docker/build-push-action@v2
+        uses: docker/build-push-action@v4.0.0
         with:
           push: true
           tags: ghcr.io/ocicl/ocicl-sandbox:latest
