@@ -1,5 +1,7 @@
 #!/bin/sh
 
+set -x
+
 (cd ~; git clone --depth=1 https://github.com/ocicl/ocicl.git; cd ocicl; make; make install; ocicl version; ocicl setup > ~/.sbclrc)
 echo "(setf ocicl-runtime:*verbose* t)" >> ~/.sbclrc
 echo "(setf ocicl-runtime:*download* t)" >> ~/.sbclrc
@@ -57,6 +59,7 @@ if [ $? -eq 0 ]; then
         echo ================================================================================ ;
         ~/bin/sbcl --non-interactive --eval "(progn (asdf:load-system \"${S}\") (quit))";
     done;
+    pwd
     echo ${SYSTEMS} > SYSTEMS
     echo ${VERSION} > VERSION
 fi
