@@ -57,4 +57,5 @@ if [ $? -eq 0 ]; then
         echo ================================================================================ ;
         ~/bin/sbcl --non-interactive --eval "(progn (asdf:load-system \"${S}\") (quit))";
     done;
+    echo ${SYSTEMS} > SYSTEMS
 fi
