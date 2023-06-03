@@ -60,6 +60,6 @@ if [ $? -eq 0 ]; then
         ~/bin/sbcl --non-interactive --eval "(progn (asdf:load-system \"${S}\") (quit))";
     done;
     pwd
-    echo ${SYSTEMS} > SYSTEMS
-    echo ${VERSION} > VERSION
+    echo ${SYSTEMS} > /github/workspace/SYSTEMS
+    echo ${VERSION} > /github/workspace/VERSION
 fi
