@@ -5,7 +5,8 @@ MAINTAINER Anthony Green <green@moxielogic.com>
 ENV LC_ALL=C.utf8 \
     LANG=C.utf8 \
     LANGUAGE=C.utf8 \
-    SBCL_VERSION=2.3.4
+    SBCL_VERSION=2.3.4 \
+    BB_PYTHON3_INCLUDE_DIR=/usr/include/python3.10
 
 RUN apt-get update \
     && apt-get install -y libffi-dev libclblas-dev libuv1-dev \
