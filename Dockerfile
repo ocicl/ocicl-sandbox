@@ -6,7 +6,8 @@ ENV LC_ALL=C.utf8 \
     LANG=C.utf8 \
     LANGUAGE=C.utf8 \
     SBCL_VERSION=2.3.4 \
-    BB_PYTHON3_INCLUDE_DIR=/usr/include/python3.10
+    BB_PYTHON3_INCLUDE_DIR=/usr/include/python3.10 \
+    BB_PYTHON3_DYLIB=/usr/lib/x86_64-linux-gnu/libpython3.10.so
 
 RUN apt-get update \
     && apt-get install -y libffi-dev libclblas-dev libuv1-dev \
