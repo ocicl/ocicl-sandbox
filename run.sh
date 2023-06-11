@@ -47,12 +47,7 @@ if [ $? -eq 0 ]; then
            exit 1 ;
            ;;
     esac ;
-    # Push all of the system paths into asdf's *central-registry*.
     echo "(asdf:initialize-source-registry '(:source-registry :ignore-inherited-configuration (:tree #p\"$(cd ${SRCDIR}; pwd)/\")))" >> ~/.sbclrc ;
-    #for S in ${SYSTEMS}; do
-    #    SYSTEMDIR=$(cd $(dirname $(find . -name ${S}.asd | head -1)) && pwd)
-    #    echo "(push #p\"$(cd ${SYSTEMDIR}; pwd)/\" asdf:*central-registry*) " >> ~/.sbclrc ;
-    #done;
     echo ==== .sbclrc ===================================================================
     cat ~/.sbclrc
     # Build each system
