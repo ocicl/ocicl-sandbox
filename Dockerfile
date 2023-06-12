@@ -14,7 +14,7 @@ RUN apt-get update \
                           libev-dev libglu-dev freeglut3-dev libgl1-mesa-dev libglfw3-dev \
                           libunac1-dev libtidy-dev libfixposix-dev golang \
                           ca-certificates curl git make python3-dev libmysqlclient-dev \
-                          libyaml-dev
+                          libyaml-dev libzmq3-dev
 
 WORKDIR /github/workspace
 
