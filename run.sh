@@ -19,7 +19,7 @@ if [ $? -eq 0 ]; then
     mkdir src
     cd src
     case ${PROTOCOL} in
-        git) git clone --depth=1 ${URI} ;
+        git) git clone ${URI} ;
              VERSION=$(date +%Y%m%d)-$(grep "| commit" ../README.org | awk '{ print $4 }') ;
 	           COMMIT=$(grep "| commit" ../README.org | awk '{ print $4 }' );
              SRCDIR=$(ls) ;
