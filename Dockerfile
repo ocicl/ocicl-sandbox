@@ -18,7 +18,7 @@ RUN apt-get update \
                           make python3-dev libmysqlclient-dev \
                           libyaml-dev libzmq3-dev unzip
 
-RUN curl -L -O https://github.com/duckdb/duckdb/releases/download/v${DUCKDB_VERSION=0}/libduckdb-linux-amd64.zip \
+RUN curl -L -O https://github.com/duckdb/duckdb/releases/download/v${DUCKDB_VERSION}/libduckdb-linux-amd64.zip \
     && unzip libduckdb-linux-amd64.zip -d /usr/lib \
     && rm libduckdb-linux-amd64.zip
 
