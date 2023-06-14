@@ -6,6 +6,7 @@ ENV LC_ALL=C.utf8 \
     LANG=C.utf8 \
     LANGUAGE=C.utf8 \
     SBCL_VERSION=2.3.4 \
+    DUCKDB_VERSION=0.8.1 \
     BB_PYTHON3_INCLUDE_DIR=/usr/include/python3.10 \
     BB_PYTHON3_DYLIB=/usr/lib/x86_64-linux-gnu/libpython3.10.so
 
@@ -15,6 +16,11 @@ RUN apt-get update \
                           libunac1-dev libtidy-dev libfixposix-dev golang \
                           ca-certificates curl git make python3-dev libmysqlclient-dev \
                           libyaml-dev libzmq3-dev
+
+RUN curl -L -O https://github.com/duckdb/duckdb/releases/download/v${DUCKDB_VERSION=0}/libduckdb-linux-amd64.zip \
+    && unzip libduckdb-linux-amd64.zip -d /usr/lib \
+    && rm libduckdb-linux-amd64.zip
+
 
 WORKDIR /github/workspace
 
