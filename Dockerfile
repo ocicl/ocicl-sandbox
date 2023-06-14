@@ -12,10 +12,11 @@ ENV LC_ALL=C.utf8 \
 
 RUN apt-get update \
     && apt-get install -y libffi-dev libclblas-dev libuv1-dev \
-                          libev-dev libglu-dev freeglut3-dev libgl1-mesa-dev libglfw3-dev \
-                          libunac1-dev libtidy-dev libfixposix-dev golang \
-                          ca-certificates curl git make python3-dev libmysqlclient-dev \
-                          libyaml-dev libzmq3-dev
+                          libev-dev libglu-dev freeglut3-dev libgl1-mesa-dev \
+                          libglfw3-dev libunac1-dev libtidy-dev \
+                          libfixposix-dev golang ca-certificates curl git \
+                          make python3-dev libmysqlclient-dev \
+                          libyaml-dev libzmq3-dev unzip
 
 RUN curl -L -O https://github.com/duckdb/duckdb/releases/download/v${DUCKDB_VERSION=0}/libduckdb-linux-amd64.zip \
     && unzip libduckdb-linux-amd64.zip -d /usr/lib \
