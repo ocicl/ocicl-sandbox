@@ -16,7 +16,7 @@ RUN apt-get update \
                           libglfw3-dev libunac1-dev libtidy-dev \
                           libfixposix-dev golang ca-certificates curl git \
                           make python3-dev libmysqlclient-dev \
-                          libyaml-dev libzmq3-dev libgsl-dev unzip
+                          libyaml-dev libzmq3-dev libgsl-dev libhdf5-dev unzip
 
 RUN curl -L -O https://github.com/duckdb/duckdb/releases/download/v${DUCKDB_VERSION}/libduckdb-linux-amd64.zip \
     && unzip libduckdb-linux-amd64.zip -d /usr/lib \
