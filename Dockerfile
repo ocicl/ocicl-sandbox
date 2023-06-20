@@ -18,7 +18,7 @@ RUN apt-get update \
                           make python3-dev libmysqlclient-dev libgit2-dev \
                           libyaml-dev libzmq3-dev libgsl-dev libhdf5-dev unzip \
                           libsdl2-dev libcairo2-dev libgtk2.0-dev \
-                          gobject-introspection
+                          gobject-introspection libsdl2-image-dev
 
 RUN curl -L -O https://github.com/duckdb/duckdb/releases/download/v${DUCKDB_VERSION}/libduckdb-linux-amd64.zip \
     && unzip libduckdb-linux-amd64.zip -d /usr/lib \
