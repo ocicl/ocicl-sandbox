@@ -27,7 +27,7 @@ RUN curl -L -O https://github.com/duckdb/duckdb/releases/download/v${DUCKDB_VERS
 
 WORKDIR /github/workspace
 
-RUN go install -v github.com/sigstore/rekor/cmd/rekor-cli@latest
+RUN PATH=/usr/lib/go-1.20/bin:$PATH go install -v github.com/sigstore/rekor/cmd/rekor-cli@latest
 RUN curl -L -O "https://downloads.sourceforge.net/project/sbcl/sbcl/${SBCL_VERSION}/sbcl-${SBCL_VERSION}-x86-64-linux-binary.tar.bz2" \
     && tar -xf sbcl-${SBCL_VERSION}-x86-64-linux-binary.tar.bz2 \
     && cd sbcl-${SBCL_VERSION}-x86-64-linux \
