@@ -7,6 +7,7 @@ ENV LC_ALL=C.utf8 \
     LANGUAGE=C.utf8 \
     SBCL_VERSION=2.3.4 \
     DUCKDB_VERSION=0.8.1 \
+    RAYLIB_VERSION=4.5.0 \
     BB_PYTHON3_INCLUDE_DIR=/usr/include/python3.10 \
     BB_PYTHON3_DYLIB=/usr/lib/x86_64-linux-gnu/libpython3.10.so
 
@@ -26,6 +27,12 @@ RUN apt-get update \
 RUN curl -L -O https://github.com/duckdb/duckdb/releases/download/v${DUCKDB_VERSION}/libduckdb-linux-amd64.zip \
     && unzip libduckdb-linux-amd64.zip -d /usr/lib \
     && rm libduckdb-linux-amd64.zip
+
+RUN curl -LOs https://github.com/raysan5/raylib/archive/refs/tags/${RAYLIB_VERSION}.tar.gz \
+    && tar xf ${RAYLIB_VERSION}.tar.gz \
+    && cd raylib-${RAYLIB_VERSION}/src \
+    && make all install PLATFORM=PLATFORM_DESKTOP RAYLIB_LIBTYPE=SHARED \
+    && cd - && rm -fr raylib-${RAYLIB_VERSION}
 
 WORKDIR /github/workspace
 
