@@ -20,7 +20,8 @@ RUN apt-get update \
                           libsdl2-dev libcairo2-dev libgtk2.0-dev \
                           gobject-introspection libsdl2-image-dev \
                           libsdl2-mixer-dev libblas-dev liblapack-dev \
-                          libfluidsynth-dev liballegro5-dev libsdl2-ttf-dev
+                          libfluidsynth-dev liballegro5-dev libsdl2-ttf-dev \
+                          libsecp256k1-dev
 
 RUN curl -L -O https://github.com/duckdb/duckdb/releases/download/v${DUCKDB_VERSION}/libduckdb-linux-amd64.zip \
     && unzip libduckdb-linux-amd64.zip -d /usr/lib \
