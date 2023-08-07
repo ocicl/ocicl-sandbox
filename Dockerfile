@@ -46,6 +46,8 @@ RUN curl -L -O "https://downloads.sourceforge.net/project/sbcl/sbcl/${SBCL_VERSI
 
 ADD run.sh /usr/bin/run.sh
 
+RUN touch /root/ssh/trivial_ssh_hosts
+
 ENV PATH="${PATH}:/root/.local/bin:/root/bin:/root/go/bin"
 
 CMD /usr/bin/run.sh
