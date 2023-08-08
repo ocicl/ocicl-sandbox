@@ -23,7 +23,7 @@ RUN apt-get update \
                           libsdl2-mixer-dev libblas-dev liblapack-dev \
                           libfluidsynth-dev liballegro5-dev libsdl2-ttf-dev \
                           libsecp256k1-dev libfuse-dev libmagic-dev \
-                          gfortran libmecab-dev
+                          gfortran libmecab-dev libsdl1.2-compat-dev
 
 RUN curl -L -O https://github.com/duckdb/duckdb/releases/download/v${DUCKDB_VERSION}/libduckdb-linux-amd64.zip \
     && unzip libduckdb-linux-amd64.zip -d /usr/lib \
