@@ -8,6 +8,8 @@ echo "(setf ocicl-runtime:*verbose* t)" >> ~/.sbclrc
 echo "(setf ocicl-runtime:*download* t)" >> ~/.sbclrc
 ~/bin/sbcl --non-interactive --eval "(quit)"
 
+ocicl version
+
 cd /github/workspace
 
 grep "| source" README.org;
