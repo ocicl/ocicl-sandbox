@@ -22,13 +22,13 @@ if [ $? -eq 0 ]; then
     cd src
     case ${PROTOCOL} in
         git) git clone ${URI} ;
-             git submodule update --init --recursive ;
              VERSION=$(date +%Y%m%d)-$(grep "| commit" ../README.org | awk '{ print $4 }') ;
 	           COMMIT=$(grep "| commit" ../README.org | awk '{ print $4 }' );
              SRCDIR=$(ls) ;
              mv ${SRCDIR} ${NAME}-${VERSION} ;
              SRCDIR=$(ls) ;
              cd ${SRCDIR} ;
+             git submodule update --init --recursive ;
              echo ${VERSION} > _00_OCICL_VERSION
              git reset --hard ${COMMIT} ;
              rm -rf .git* ;
