@@ -24,7 +24,8 @@ RUN apt-get update \
                           libfluidsynth-dev liballegro5-dev libsdl2-ttf-dev \
                           libsecp256k1-dev libfuse-dev libmagic-dev \
                           gfortran libmecab-dev libsdl1.2-compat-dev \
-                          liblz-dev libtermbox-dev libgtk-4-1 libwebkit2gtk-4.1-dev
+                          liblz-dev libtermbox-dev libgtk-4-1 libwebkit2gtk-4.1-dev \
+                          liblmdb-dev
 
 RUN curl -L -O https://github.com/duckdb/duckdb/releases/download/v${DUCKDB_VERSION}/libduckdb-linux-amd64.zip \
     && unzip libduckdb-linux-amd64.zip -d /usr/lib \
