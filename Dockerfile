@@ -5,9 +5,9 @@ MAINTAINER Anthony Green <green@moxielogic.com>
 ENV LC_ALL=C.utf8 \
     LANG=C.utf8 \
     LANGUAGE=C.utf8 \
-    SBCL_VERSION=2.3.4 \
-    DUCKDB_VERSION=0.8.1 \
-    RAYLIB_VERSION=4.5.0 \
+    SBCL_VERSION=2.3.10 \
+    DUCKDB_VERSION=0.9.2 \
+    RAYLIB_VERSION=5.0.0 \
     BB_PYTHON3_INCLUDE_DIR=/usr/include/python3.10 \
     BB_PYTHON3_DYLIB=/usr/lib/x86_64-linux-gnu/libpython3.10.so
 
