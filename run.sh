@@ -35,6 +35,23 @@ if [ $? -eq 0 ]; then
              cd .. ;
              tar cvfz ${NAME}-${VERSION}.tar.gz ${SRCDIR} ;
              ;;
+        git-lfs) git clone ${URI} ;
+             VERSION=$(date +%Y%m%d)-$(grep "| commit" ../README.org | awk '{ print $4 }') ;
+	           COMMIT=$(grep "| commit" ../README.org | awk '{ print $4 }' );
+             SRCDIR=$(ls) ;
+             mv ${SRCDIR} ${NAME}-${VERSION} ;
+             SRCDIR=$(ls) ;
+             cd ${SRCDIR} ;
+             git submodule update --init --recursive ;
+             echo ${VERSION} > _00_OCICL_VERSION
+             git reset --hard ${COMMIT} ;
+             git lfs install ;
+             git lfs fetch ;
+             git lfs checkout ;
+             rm -rf .git* ;
+             cd .. ;
+             tar cvfz ${NAME}-${VERSION}.tar.gz ${SRCDIR} ;
+             ;;
         file) VERSION=$(grep "| version" ../README.org | awk '{ print $4 }') ;
               curl -L -o source.tar.gz ${URI} ;
               tar xvf source.tar.gz
