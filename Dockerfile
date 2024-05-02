@@ -51,6 +51,7 @@ RUN curl -L -O "https://downloads.sourceforge.net/project/sbcl/sbcl/${SBCL_VERSI
 
 ADD run.sh /usr/bin/run.sh
 ADD make-compare.sh /usr/bin/make-compare.sh
+ADD compare.lisp /usr/share/compare.lisp
 
 RUN mkdir -p /root/.ssh && touch /root/.ssh/trivial_ssh_hosts
 
