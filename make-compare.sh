@@ -19,7 +19,9 @@ if [ $? -eq 0 ]; then
     SYSTEM=$(echo ${SYSTEMS} | cut -d " " -f1);
     CURRENT=$(ocicl list ${SYSTEM} | head -3 | tail -1)
     PREVIOUS=$(ocicl list ${SYSTEM} | head -4 | tail -1)
+    env
     if [ "X${CURRENT}" != "X" ] && [ "X${PREVIOUS}" != "X" ]; then
+        echo Running now...
         SYSTEM=${SYSTEM} CURRENT=${CURRENT} PREVIOUS=${PREVIOUS} ~/bin/sbcl --non-interactive --load /usr/share/compare.lisp
     fi
     ls -l /github/workspace
