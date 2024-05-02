@@ -27,7 +27,7 @@ RUN apt-get update \
                           gfortran libmecab-dev libsdl1.2-compat-dev \
                           liblz-dev libtermbox-dev libgtk-4-1 libwebkit2gtk-4.1-dev \
                           libsybdb5 liblmdb-dev libturbojpeg-dev libcmark-dev \
-                          wget libmigemo-dev cmigemo
+                          wget libmigemo-dev cmigemo pandoc diffutils
 
 RUN curl -L -O https://github.com/duckdb/duckdb/releases/download/v${DUCKDB_VERSION}/libduckdb-linux-amd64.zip \
     && unzip libduckdb-linux-amd64.zip -d /usr/lib \
@@ -50,6 +50,7 @@ RUN curl -L -O "https://downloads.sourceforge.net/project/sbcl/sbcl/${SBCL_VERSI
     && rm -rf sbcl-${SBCL_VERSION}-x86-64-linux-binary.tar.bz2 sbcl-${SBCL_VERSION}-x86-64-linux
 
 ADD run.sh /usr/bin/run.sh
+ADD make-compare.sh /usr/bin/make-compare.sh
 
 RUN mkdir -p /root/.ssh && touch /root/.ssh/trivial_ssh_hosts
 
