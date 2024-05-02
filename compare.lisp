@@ -25,7 +25,7 @@
                                     :ignore-error-status t
                                     :output :string))
             (completer (make-instance 'completions:openai-completer
-                                      :api-key (uiop:getenv "OPENAI_API_KEY"))))
+                                      :api-key (uiop:getenv "LLM_API_KEY"))))
         (print diff)
         (let ((text (completions:get-completion completer
                                                 (format nil "You are my Lisp programming assistant.  What follows are diffs between two versions of the Common Lisp project containing the lisp system ~A.  Summarize the differences that would matter for users of this code, API changes in particular.  Use point form.  Ignore version changes.  Symbols in Common Lisp are case insensitive.  Produce output in github markdown format.  Here's an example of good output:
