@@ -9,11 +9,14 @@
       (v2 (str:trim (uiop:getenv "CURRENT"))))
   (tmpdir:with-tmpdir (dir)
     (uiop:with-current-directory (dir)
-      (uiop:run-program (format nil "ocicl-oras pull ghcr.io/ocicl/~A:~A" system v1))
-      (uiop:run-program (format nil "ocicl-oras pull ghcr.io/ocicl/~A:~A" system v2))
+      (format t "ocicl-oras pull ghcr.io/ocicl/~A:~A" system v1)
+      (format t "ocicl-oras pull ghcr.io/ocicl/~A:~A" system v2)
+      (uiop:run-program (format nil "ocicl-oras pull ghcr.io/ocicl/~A:~A" system v1) :output *standard-output*)
+      (uiop:run-program (format nil "ocicl-oras pull ghcr.io/ocicl/~A:~A" system v2) :output *standard-output*)
       (let ((files (uiop:directory-files dir)))
+        (print files)
         (dolist (file files)
-          (uiop:run-program (format nil "tar xf ~A" file) :output *standard-output*)))
+          (uiop:run-program (format nil "tar xf ~A" file) :output *standard-output*)))1
       (let ((diff (uiop:run-program (format nil "diff -ur ~{~A ~}"
                                             (sort (uiop:subdirectories dir)
                                                   (lambda (a b)
@@ -23,6 +26,7 @@
                                     :output :string))
             (completer (make-instance 'completions:openai-completer
                                       :api-key (uiop:getenv "OPENAI_API_KEY"))))
+        (print diff)
         (let ((text (completions:get-completion completer
                                                 (format nil "You are my Lisp programming assistant.  What follows are diffs between two versions of the Common Lisp project containing the lisp system ~A.  Summarize the differences that would matter for users of this code, API changes in particular.  Use point form.  Ignore version changes.  Symbols in Common Lisp are case insensitive.  Produce output in github markdown format.  Here's an example of good output:
 
