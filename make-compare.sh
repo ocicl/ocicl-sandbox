@@ -20,6 +20,6 @@ if [ $? -eq 0 ]; then
     CURRENT=$(ocicl list cl-ppcre | head -3 | tail -1)
     PREVIOUS=$(ocicl list cl-ppcre | head -4 | tail -1)
     if [ "X${CURRENT}" != "X" ] && [ "X${PREVIOUS}" != "X" ]; then
-        ~/bin/sbcl --non-interactive --load /usr/share/compare.lisp
+        SYSTEM=${SYSTEM} CURRENT=${CURRENT} PREVIOUS=${PREVIOUS} ~/bin/sbcl --non-interactive --load /usr/share/compare.lisp
     fi
 fi
