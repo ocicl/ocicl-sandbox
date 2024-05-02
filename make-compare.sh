@@ -22,4 +22,5 @@ if [ $? -eq 0 ]; then
     if [ "X${CURRENT}" != "X" ] && [ "X${PREVIOUS}" != "X" ]; then
         SYSTEM=${SYSTEM} CURRENT=${CURRENT} PREVIOUS=${PREVIOUS} ~/bin/sbcl --non-interactive --load /usr/share/compare.lisp
     fi
+    ls -l /github/workspace
 fi
