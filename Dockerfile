@@ -1,4 +1,4 @@
-FROM ubuntu
+FROM ubuntu:jammy
 
 MAINTAINER Anthony Green <green@moxielogic.com>
 
