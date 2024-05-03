@@ -20,7 +20,7 @@
         (uiop:run-program (format nil "tar xf ~A -C v2" file) :output *standard-output*)
         (uiop:run-program (format nil "rm ~A" file) :output *standard-output*))
 
-      (let ((diff (uiop:run-program "diff -ur v1 v2"
+      (let ((diff (uiop:run-program "diff -r -U 8 v1/* v2/*"
                                     :ignore-error-status t
                                     :output :string))
             (completer (make-instance 'completions:openai-completer
