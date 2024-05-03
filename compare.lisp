@@ -9,19 +9,18 @@
       (v2 (str:trim (uiop:getenv "CURRENT"))))
   (tmpdir:with-tmpdir (dir)
     (uiop:with-current-directory (dir)
-      (format t "ocicl-oras pull ghcr.io/ocicl/~A:~A" system v1)
-      (format t "ocicl-oras pull ghcr.io/ocicl/~A:~A" system v2)
+      (uiop:ensure-all-directories-exist (list (make-pathname :directory '(:relative "v1"))
+                                               (make-pathname :directory '(:relative "v2"))))
       (uiop:run-program (format nil "ocicl-oras pull ghcr.io/ocicl/~A:~A" system v1) :output *standard-output*)
+      (let ((file (car (uiop:directory-files dir))))
+        (uiop:run-program (format nil "tar xf ~A -C v1" file) :output *standard-output*)
+        (uiop:run-program (format nil "rm ~A" file) :output *standard-output*))
       (uiop:run-program (format nil "ocicl-oras pull ghcr.io/ocicl/~A:~A" system v2) :output *standard-output*)
-      (let ((files (uiop:directory-files dir)))
-        (print files)
-        (dolist (file files)
-          (uiop:run-program (format nil "tar xf ~A" file) :output *standard-output*)))1
-      (let ((diff (uiop:run-program (format nil "diff -ur ~{~A ~}"
-                                            (sort (uiop:subdirectories dir)
-                                                  (lambda (a b)
-                                                    (string< (namestring a)
-                                                             (namestring b)))))
+      (let ((file (car (uiop:directory-files dir))))
+        (uiop:run-program (format nil "tar xf ~A -C v2" file) :output *standard-output*)
+        (uiop:run-program (format nil "rm ~A" file) :output *standard-output*))
+
+      (let ((diff (uiop:run-program "diff -ur v1 v2"
                                     :ignore-error-status t
                                     :output :string))
             (completer (make-instance 'completions:openai-completer
