@@ -30,6 +30,7 @@ if [ $? -eq 0 ]; then
              cd ${SRCDIR} ;
              git submodule update --init --recursive ;
              echo ${VERSION} > _00_OCICL_VERSION
+             echo ${NAME} > _00_OCICL_NAME
              git reset --hard ${COMMIT} ;
              rm -rf .git* ;
              cd .. ;
@@ -44,6 +45,7 @@ if [ $? -eq 0 ]; then
              cd ${SRCDIR} ;
              git submodule update --init --recursive ;
              echo ${VERSION} > _00_OCICL_VERSION
+             echo ${NAME} > _00_OCICL_NAME
              git reset --hard ${COMMIT} ;
              git lfs install ;
              git lfs fetch ;
@@ -61,6 +63,7 @@ if [ $? -eq 0 ]; then
               mv tmpname ${NAME}-${VERSION} ;
               SRCDIR=$(ls) ;
               echo ${VERSION} > _00_OCICL_VERSION
+              echo ${NAME} > _00_OCICL_NAME
               tar cvfz ${NAME}-${VERSION}.tar.gz ${SRCDIR} ;
               ;;
         *) echo Unrecognized PROTOCOL ${PROTOCOL} ;
