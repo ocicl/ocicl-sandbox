@@ -20,14 +20,14 @@
         (uiop:run-program (format nil "tar xf ~A -C v2" file) :output *standard-output*)
         (uiop:run-program (format nil "rm ~A" file) :output *standard-output*))
 
-      (let ((diff (uiop:run-program "diff -r -N -U 8 v1/* v2/*"
+      (let ((diff (uiop:run-program "diff -r -N -U 8 -x '_00_OCICL_*' v1/* v2/*"
                                     :ignore-error-status t
                                     :output :string))
             (completer (make-instance 'completions:openai-completer
                                       :api-key (uiop:getenv "LLM_API_KEY"))))
         (print diff)
         (let ((text (completions:get-completion completer
-                                                (format nil "You are my Lisp programming assistant.  What follows are diffs between two versions of the Common Lisp project containing the lisp system ~A.  Summarize the differences that would matter for users of this code, API changes in particular.  Use point form.  Ignore version changes.  Symbols in Common Lisp are case insensitive.  Produce output in github markdown format.  Use simple, succinct, clear language. Focus on changes that impact users.  Here's an example of good output:
+                                                (format nil "You are my Lisp programming assistant.  What follows are diffs between two versions of the Common Lisp project containing the lisp system ~A.  Summarize the differences that would matter for users of this code, API changes in particular.  Use point form.  Ignore version changes.  Symbols in Common Lisp are case insensitive.  Produce output in github markdown format.  Use simple, succinct, clear language. Focus on changes that impact users. Here's an example of good output:
 
 The updates in the Common Lisp system 'machine-state' primarily involve enhancing garbage handling and memory size calculation across various Lisp implementations. Here's a summary of these changes:
 
