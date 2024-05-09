@@ -3,7 +3,7 @@
 set -x
 set -e
 
-(cd ~; git clone --depth=1 https://github.com/ocicl/ocicl.git; cd ocicl; make; make install; ocicl version; ocicl setup > ~/.sbclrc)
+(cd ~; git clone --depth=1 https://github.com/ocicl/ocicl.git; cd ocicl; sbcl --load setup.lisp; ocicl version; ocicl setup > ~/.sbclrc)
 echo "(setf ocicl-runtime:*verbose* t)" >> ~/.sbclrc
 echo "(setf ocicl-runtime:*download* t)" >> ~/.sbclrc
 ~/bin/sbcl --non-interactive --eval "(quit)"
