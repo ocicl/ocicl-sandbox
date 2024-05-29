@@ -5,8 +5,8 @@ MAINTAINER Anthony Green <green@moxielogic.com>
 ENV LC_ALL=C.utf8 \
     LANG=C.utf8 \
     LANGUAGE=C.utf8 \
-    SBCL_VERSION=2.4.1 \
-    DUCKDB_VERSION=0.10.0 \
+    SBCL_VERSION=2.4.4 \
+    DUCKDB_VERSION=0.10.3 \
     RAYLIB_VERSION=5.0 \
     BB_PYTHON3_INCLUDE_DIR=/usr/include/python3.10 \
     BB_PYTHON3_DYLIB=/usr/lib/x86_64-linux-gnu/libpython3.10.so
@@ -27,7 +27,7 @@ RUN apt-get update \
                           gfortran libmecab-dev libsdl1.2-compat-dev \
                           liblz-dev libtermbox-dev libgtk-4-1 libwebkit2gtk-4.1-dev \
                           libsybdb5 liblmdb-dev libturbojpeg-dev libcmark-dev \
-                          wget libmigemo-dev cmigemo pandoc diffutils
+                          wget libmigemo-dev cmigemo pandoc diffutils libfcgi
 
 RUN curl -L -O https://github.com/duckdb/duckdb/releases/download/v${DUCKDB_VERSION}/libduckdb-linux-amd64.zip \
     && unzip libduckdb-linux-amd64.zip -d /usr/lib \
