@@ -68,6 +68,6 @@ It's important to note that these changes mainly affect internal functionality a
                         :direction :output
                         :if-exists :supersede
                         :if-does-not-exist :create)
-     (format str "[Unable to generate change description.  Diff too large?]"))))
+     (format str "[LLM system error: unable to generate change description.]"))))
 
 (quit)
