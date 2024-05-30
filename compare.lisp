@@ -6,30 +6,31 @@
 
 (setf completions::*debug-stream* *standard-output*)
 
-(let ((system (str:trim (uiop:getenv "SYSTEM")))
-      (v1 (str:trim (uiop:getenv "PREVIOUS")))
-      (v2 (str:trim (uiop:getenv "CURRENT"))))
-  (tmpdir:with-tmpdir (dir)
-    (uiop:with-current-directory (dir)
-      (uiop:ensure-all-directories-exist (list (make-pathname :directory '(:relative "v1"))
-                                               (make-pathname :directory '(:relative "v2"))))
-      (uiop:run-program (format nil "ocicl-oras pull ghcr.io/ocicl/~A:~A" system v1) :output *standard-output*)
-      (let ((file (car (uiop:directory-files dir))))
-        (uiop:run-program (format nil "tar xf ~A -C v1" file) :output *standard-output*)
-        (uiop:run-program (format nil "rm ~A" file) :output *standard-output*))
-      (uiop:run-program (format nil "ocicl-oras pull ghcr.io/ocicl/~A:~A" system v2) :output *standard-output*)
-      (let ((file (car (uiop:directory-files dir))))
-        (uiop:run-program (format nil "tar xf ~A -C v2" file) :output *standard-output*)
-        (uiop:run-program (format nil "rm ~A" file) :output *standard-output*))
+(handle-case
+ (let ((system (str:trim (uiop:getenv "SYSTEM")))
+       (v1 (str:trim (uiop:getenv "PREVIOUS")))
+       (v2 (str:trim (uiop:getenv "CURRENT"))))
+   (tmpdir:with-tmpdir (dir)
+     (uiop:with-current-directory (dir)
+       (uiop:ensure-all-directories-exist (list (make-pathname :directory '(:relative "v1"))
+                                                (make-pathname :directory '(:relative "v2"))))
+       (uiop:run-program (format nil "ocicl-oras pull ghcr.io/ocicl/~A:~A" system v1) :output *standard-output*)
+       (let ((file (car (uiop:directory-files dir))))
+         (uiop:run-program (format nil "tar xf ~A -C v1" file) :output *standard-output*)
+         (uiop:run-program (format nil "rm ~A" file) :output *standard-output*))
+       (uiop:run-program (format nil "ocicl-oras pull ghcr.io/ocicl/~A:~A" system v2) :output *standard-output*)
+       (let ((file (car (uiop:directory-files dir))))
+         (uiop:run-program (format nil "tar xf ~A -C v2" file) :output *standard-output*)
+         (uiop:run-program (format nil "rm ~A" file) :output *standard-output*))
 
-      (let ((diff (uiop:run-program "diff -r -N -U 8 -x '_00_OCICL_*' v1/* v2/*"
-                                    :ignore-error-status t
-                                    :output :string))
-            (completer (make-instance 'completions:openai-completer
-                                      :api-key (uiop:getenv "LLM_API_KEY"))))
-        (print diff)
-        (let ((text (completions:get-completion completer
-                                                (format nil "You are my Lisp programming assistant.  What follows are diffs between two versions of the Common Lisp project containing the lisp system ~A.  Summarize the differences that would matter for users of this code, API changes in particular.  Use point form.  Ignore version changes.  Symbols in Common Lisp are case insensitive.  Produce output in github markdown format.  Use simple, succinct, clear language. Focus on changes that impact users. Here's an example of good output:
+       (let ((diff (uiop:run-program "diff -r -N -U 8 -x '_00_OCICL_*' v1/* v2/*"
+                                     :ignore-error-status t
+                                     :output :string))
+             (completer (make-instance 'completions:openai-completer
+                                       :api-key (uiop:getenv "LLM_API_KEY"))))
+         (print diff)
+         (let ((text (completions:get-completion completer
+                                                 (format nil "You are my Lisp programming assistant.  What follows are diffs between two versions of the Common Lisp project containing the lisp system ~A.  Summarize the differences that would matter for users of this code, API changes in particular.  Use point form.  Ignore version changes.  Symbols in Common Lisp are case insensitive.  Produce output in github markdown format.  Use simple, succinct, clear language. Focus on changes that impact users. Here's an example of good output:
 
 The updates in the Common Lisp system 'machine-state' primarily involve enhancing garbage handling and memory size calculation across various Lisp implementations. Here's a summary of these changes:
 
@@ -47,20 +48,26 @@ A change has been made in how the total and used memory are calculated in CLISP.
 
 It's important to note that these changes mainly affect internal functionality and improve dump output accuracy across different Lisp implementation. Users will benefit from more accurate memory usage information but are not required to adjust any of their existing interaction with the system.
 ~%~%~%Here are the diffs: ~A"
-                                                        system
-                                                        diff)
-                                                :max-tokens 8192)))
-          (if (null text)
-              (format t "ERROR: get-completion returned null")
-              (let ((full-text
-                      (concatenate 'string
-                                   (with-input-from-string (stream text)
-                                     (print (uiop:run-program "pandoc - -f gfm -t plain --columns=75" :input stream :output :string)))
-                                   (format nil "~&~%[This text was generated by AI and may not be fully accurate or complete.]~%"))))
-                (with-open-file (str "/github/workspace/changes.txt"
-                                     :direction :output
-                                     :if-exists :supersede
-                                     :if-does-not-exist :create)
-                  (format str "~A" full-text)))))))))
+                                                         system
+                                                         diff)
+                                                 :max-tokens 8192)))
+           (if (null text)
+               (format t "ERROR: get-completion returned null")
+               (let ((full-text
+                       (concatenate 'string
+                                    (with-input-from-string (stream text)
+                                      (print (uiop:run-program "pandoc - -f gfm -t plain --columns=75" :input stream :output :string)))
+                                    (format nil "~&~%[This text was generated by AI and may not be fully accurate or complete.]~%"))))
+                 (with-open-file (str "/github/workspace/changes.txt"
+                                      :direction :output
+                                      :if-exists :supersede
+                                      :if-does-not-exist :create)
+                   (format str "~A" full-text)))))))))
+ (error (e)
+   (with-open-file (str "/github/workspace/changes.txt"
+                        :direction :output
+                        :if-exists :supersede
+                        :if-does-not-exist :create)
+     (format str "[Unable to generate change description.  Diff too large?]"))))
 
 (quit)
