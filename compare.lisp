@@ -4,6 +4,8 @@
   (asdf:load-system :tmpdir)
   (asdf:load-system :str))
 
+(setf completions::*debug-stream* *standard-output*)
+
 (let ((system (str:trim (uiop:getenv "SYSTEM")))
       (v1 (str:trim (uiop:getenv "PREVIOUS")))
       (v2 (str:trim (uiop:getenv "CURRENT"))))
@@ -46,7 +48,8 @@ A change has been made in how the total and used memory are calculated in CLISP.
 It's important to note that these changes mainly affect internal functionality and improve dump output accuracy across different Lisp implementation. Users will benefit from more accurate memory usage information but are not required to adjust any of their existing interaction with the system.
 ~%~%~%Here are the diffs: ~A"
                                                         system
-                                                        diff))))
+                                                        diff)
+                                                :max-tokens 8192)))
           (if (null text)
               (format t "ERROR: get-completion returned null")
               (let ((full-text
