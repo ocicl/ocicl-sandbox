@@ -1,6 +1,7 @@
 (let ((ocicl-runtime:*download* t)
       (ocicl-runtime:*verbose* t))
   (asdf:load-system :completions)
+  (asdf:load-system :trivial-backtrace)
   (asdf:load-system :tmpdir)
   (asdf:load-system :str))
 
@@ -27,6 +28,7 @@
                                         :ignore-error-status t
                                         :output :string))
                 (completer (make-instance 'completions:openai-completer
+                                          :model "gpt-4o"
                                           :api-key (uiop:getenv "LLM_API_KEY"))))
             (print diff)
             (let ((text (completions:get-completion completer
@@ -65,6 +67,7 @@ It's important to note that these changes mainly affect internal functionality a
                                          :if-does-not-exist :create)
                       (format str "~A" full-text)))))))))
   (error (e)
+    (trivial-backtrace:print-condition e t)
     (with-open-file (str "/github/workspace/changes.txt"
                          :direction :output
                          :if-exists :supersede
