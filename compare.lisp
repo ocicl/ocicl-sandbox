@@ -51,6 +51,7 @@ It's important to note that these changes mainly affect internal functionality a
                                                             system
                                                             diff)
                                                     :max-tokens 8192)))
+              (format t "COMPLETER RETURNED: ~A" text)
               (if (null text)
                   (format t "ERROR: get-completion returned null")
                   (let ((full-text
