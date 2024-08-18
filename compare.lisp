@@ -52,7 +52,7 @@ It's important to note that these changes mainly affect internal functionality a
 ~%~%~%Here are the diffs: ~A"
                                                             system
                                                             diff)
-                                                    :max-tokens 8192)))
+                                                    :max-tokens 4096)))
               (format t "COMPLETER RETURNED: ~A" text)
               (if (null text)
                   (format t "ERROR: get-completion returned null")
