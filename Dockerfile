@@ -29,7 +29,7 @@ RUN apt-get update \
                           libsybdb5 liblmdb-dev libturbojpeg-dev libcmark-dev \
                           wget libmigemo-dev cmigemo pandoc diffutils libfcgi \
                           librocksdb-dev libtree-sitter-dev portaudio19-dev \
-                          libportmidi-dev
+                          libportmidi-dev libfftw3-dev
 
 RUN curl -L -O https://github.com/duckdb/duckdb/releases/download/v${DUCKDB_VERSION}/libduckdb-linux-amd64.zip \
     && unzip libduckdb-linux-amd64.zip -d /usr/lib \
