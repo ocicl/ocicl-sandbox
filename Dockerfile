@@ -55,6 +55,8 @@ ADD run.sh /usr/bin/run.sh
 ADD make-compare.sh /usr/bin/make-compare.sh
 ADD compare.lisp /usr/share/compare.lisp
 
+RUN echo "(setq *enable-jack-midi* t)" > ~/.incudinerc
+
 RUN mkdir -p /root/.ssh && touch /root/.ssh/trivial_ssh_hosts
 
 ENV PATH="${PATH}:/root/.local/bin:/root/bin:/root/go/bin"
