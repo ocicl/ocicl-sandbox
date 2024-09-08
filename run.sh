@@ -3,6 +3,9 @@
 set -x
 set -e
 
+git config --global http.version HTTP/1.1
+git config --global http.postBuffer 157286400
+
 (cd ~; git clone --depth=1 https://github.com/ocicl/ocicl.git; cd ocicl; sbcl --load setup.lisp; ocicl version; ocicl setup > ~/.sbclrc)
 echo "(setf ocicl-runtime:*verbose* t)" >> ~/.sbclrc
 echo "(setf ocicl-runtime:*download* t)" >> ~/.sbclrc
