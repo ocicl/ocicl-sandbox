@@ -3,10 +3,28 @@
 set -x
 set -e
 
+retry_command0() {
+    local -r cmd="$@"
+    local -i attempt=0
+    local -i max_attempts=5
+    local -i sleep_time=1  # Initial backoff delay in seconds
+
+    until $cmd; do
+        attempt+=1
+        if (( attempt > max_attempts )); then
+            echo "The command has failed after $max_attempts attempts."
+            return 1
+        fi
+        echo "The command has failed. Retrying in $sleep_time seconds..."
+        sleep $sleep_time
+        sleep_time=$((sleep_time * 2))  # Double the backoff delay each time
+    done
+}
+
 git config --global http.version HTTP/1.1
 git config --global http.postBuffer 157286400
 
-(cd ~; git clone --depth=1 https://github.com/ocicl/ocicl.git; cd ocicl; sbcl --load setup.lisp; ocicl version; ocicl setup > ~/.sbclrc)
+(cd ~; retry_command0 git clone --depth=1 https://github.com/ocicl/ocicl.git; cd ocicl; sbcl --load setup.lisp; ocicl version; ocicl setup > ~/.sbclrc)
 echo "(setf ocicl-runtime:*verbose* t)" >> ~/.sbclrc
 echo "(setf ocicl-runtime:*download* t)" >> ~/.sbclrc
 ~/bin/sbcl --non-interactive --eval "(quit)"
@@ -24,7 +42,7 @@ if [ $? -eq 0 ]; then
     mkdir src
     cd src
     case ${PROTOCOL} in
-        git) git clone ${URI} ;
+        git) retry_command0 git clone ${URI} ;
              VERSION=$(date +%Y%m%d)-$(grep "| commit" ../README.org | awk '{ print $4 }') ;
 	           COMMIT=$(grep "| commit" ../README.org | awk '{ print $4 }' );
              SRCDIR=$(ls) ;
@@ -39,20 +57,20 @@ if [ $? -eq 0 ]; then
              cd .. ;
              tar cvfz ${NAME}-${VERSION}.tar.gz ${SRCDIR} ;
              ;;
-        git-lfs) git clone ${URI} ;
+        git-lfs) retry_command0 git clone ${URI} ;
              VERSION=$(date +%Y%m%d)-$(grep "| commit" ../README.org | awk '{ print $4 }') ;
 	           COMMIT=$(grep "| commit" ../README.org | awk '{ print $4 }' );
              SRCDIR=$(ls) ;
              mv ${SRCDIR} ${NAME}-${VERSION} ;
              SRCDIR=$(ls) ;
              cd ${SRCDIR} ;
-             git submodule update --init --recursive ;
+             retry_command0 git submodule update --init --recursive ;
              echo ${VERSION} > _00_OCICL_VERSION
              echo ${NAME} > _00_OCICL_NAME
              git reset --hard ${COMMIT} ;
              git lfs install ;
-             git lfs fetch ;
-             git lfs checkout ;
+             retry_command0 git lfs fetch ;
+             retry_command0 git lfs checkout ;
              rm -rf .git* ;
              cd .. ;
              tar cvfz ${NAME}-${VERSION}.tar.gz ${SRCDIR} ;
