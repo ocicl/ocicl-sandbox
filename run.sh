@@ -1,10 +1,10 @@
-#!/bin/sh
+#!/bin/bash
 
 set -x
 set -e
 
 retry_command0() {
-    local -r cmd="$@"
+    local cmd="$@"
     local -i attempt=0
     local -i max_attempts=5
     local -i sleep_time=1  # Initial backoff delay in seconds
