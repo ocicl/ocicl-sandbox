@@ -30,7 +30,7 @@ RUN apt-get update \
                           wget libmigemo-dev cmigemo pandoc diffutils libfcgi \
                           librocksdb-dev libtree-sitter-dev portaudio19-dev \
                           libportmidi-dev libfftw3-dev liblilv-dev \
-                          libenchant-2-dev
+                          libenchant-2-dev libassimp-dev
 
 RUN curl -L -O https://github.com/duckdb/duckdb/releases/download/v${DUCKDB_VERSION}/libduckdb-linux-amd64.zip \
     && unzip libduckdb-linux-amd64.zip -d /usr/lib \
