@@ -9,7 +9,8 @@ ENV LC_ALL=C.utf8 \
     DUCKDB_VERSION=1.1.1 \
     RAYLIB_VERSION=5.0 \
     BB_PYTHON3_INCLUDE_DIR=/usr/include/python3.10 \
-    BB_PYTHON3_DYLIB=/usr/lib/x86_64-linux-gnu/libpython3.10.so
+    BB_PYTHON3_DYLIB=/usr/lib/x86_64-linux-gnu/libpython3.10.so \
+    ORAS_VERSION="1.2.0"
 
 RUN apt-get update \
     && apt-get install -y libffi-dev libclblas-dev libuv1-dev \
@@ -31,6 +32,13 @@ RUN apt-get update \
                           librocksdb-dev libtree-sitter-dev portaudio19-dev \
                           libportmidi-dev libfftw3-dev liblilv-dev \
                           libenchant-2-dev libassimp-dev
+
+
+RUN curl -LO "https://github.com/oras-project/oras/releases/download/v${ORAS_VERSION}/oras_${ORAS_VERSION}_linux_amd64.tar.gz" \
+    && mkdir -p oras-install/ \
+    && tar -zxf oras_${ORAS_VERSION}_*.tar.gz -C oras-install/ \
+    && mv oras-install/oras /usr/local/bin/ \
+    && rm -rf oras_${ORAS_VERSION}_*.tar.gz oras-install/
 
 RUN curl -L -O https://github.com/duckdb/duckdb/releases/download/v${DUCKDB_VERSION}/libduckdb-linux-amd64.zip \
     && unzip libduckdb-linux-amd64.zip -d /usr/lib \
