@@ -24,7 +24,7 @@ retry_command0() {
 git config --global http.version HTTP/1.1
 git config --global http.postBuffer 157286400
 
-(cd ~; retry_command0 git clone --depth=1 https://github.com/ocicl/ocicl.git; cd ocicl; sbcl --eval "(defconstant +dynamic-space-size+ 5000)" --load setup.lisp; ocicl version; ocicl setup > ~/.sbclrc)
+(cd ~; retry_command0 git clone --depth=1 https://github.com/ocicl/ocicl.git; cd ocicl; sbcl --eval "(defconstant +dynamic-space-size+ 6000)" --load setup.lisp; ocicl version; ocicl setup > ~/.sbclrc)
 echo "(setf ocicl-runtime:*verbose* t)" >> ~/.sbclrc
 echo "(setf ocicl-runtime:*download* t)" >> ~/.sbclrc
 ~/bin/sbcl --non-interactive --eval "(quit)"
