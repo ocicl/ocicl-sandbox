@@ -99,7 +99,7 @@ if [ $? -eq 0 ]; then
         echo ================================================================================
         echo Building ${S}
         echo ================================================================================ ;
-        ~/bin/sbcl --dynamic-space-size 3584 --non-interactive --eval "(progn (asdf:load-system \"${S}\") (quit))";
+        ~/bin/sbcl --dynamic-space-size 5120 --non-interactive --eval "(progn (asdf:load-system \"${S}\") (quit))";
     done;
     pwd
     echo ${NAME} > /github/workspace/NAME
