@@ -6,6 +6,7 @@ ENV LC_ALL=C.utf8 \
     LANG=C.utf8 \
     LANGUAGE=C.utf8 \
     SBCL_VERSION=2.4.7 \
+    REKOR_VERSION=1.3.7 \
     DUCKDB_VERSION=1.1.1 \
     RAYLIB_VERSION=5.0 \
     BB_PYTHON3_INCLUDE_DIR=/usr/include/python3.10 \
@@ -50,9 +51,12 @@ RUN curl -LOs https://github.com/raysan5/raylib/archive/refs/tags/${RAYLIB_VERSI
     && make all install PLATFORM=PLATFORM_DESKTOP RAYLIB_LIBTYPE=SHARED \
     && cd - && rm -fr raylib-${RAYLIB_VERSION}
 
+RUN curl -LO "https://github.com/sigstore/rekor/releases/download/v${REKOR_VERSION}/rekor-cli-linux-amd64" \
+    && mv rekor-cli-linux-amd64 /usr/local/bin/rekor \
+    && chmod +x /usr/local/bin/rekor
+
 WORKDIR /github/workspace
 
-RUN PATH=/usr/lib/go-1.20/bin:$PATH go install -v github.com/sigstore/rekor/cmd/rekor-cli@latest
 RUN curl -L -O "https://downloads.sourceforge.net/project/sbcl/sbcl/${SBCL_VERSION}/sbcl-${SBCL_VERSION}-x86-64-linux-binary.tar.bz2" \
     && tar -xf sbcl-${SBCL_VERSION}-x86-64-linux-binary.tar.bz2 \
     && cd sbcl-${SBCL_VERSION}-x86-64-linux \
