@@ -31,7 +31,7 @@ RUN apt-get update \
                           wget libmigemo-dev cmigemo pandoc diffutils libfcgi \
                           librocksdb-dev libtree-sitter-dev portaudio19-dev \
                           libportmidi-dev libfftw3-dev liblilv-dev \
-                          libenchant-2-dev libassimp-dev
+                          libenchant-2-dev libassimp-dev librdkafka-dev
 
 
 RUN curl -LO "https://github.com/oras-project/oras/releases/download/v${ORAS_VERSION}/oras_${ORAS_VERSION}_linux_amd64.tar.gz" \
