@@ -52,8 +52,8 @@ RUN curl -LOs https://github.com/raysan5/raylib/archive/refs/tags/${RAYLIB_VERSI
     && cd - && rm -fr raylib-${RAYLIB_VERSION}
 
 RUN curl -LO "https://github.com/sigstore/rekor/releases/download/v${REKOR_VERSION}/rekor-cli-linux-amd64" \
-    && mv rekor-cli-linux-amd64 /usr/local/bin/rekor \
-    && chmod +x /usr/local/bin/rekor
+    && mv rekor-cli-linux-amd64 /usr/local/bin/rekor-cli \
+    && chmod +x /usr/local/bin/rekor-cli
 
 WORKDIR /github/workspace
 
