@@ -94,9 +94,11 @@ if [ $? -eq 0 ]; then
     echo "(asdf:initialize-source-registry '(:source-registry :ignore-inherited-configuration (:tree #p\"$(cd ${SRCDIR}; pwd)/\")))" >> ~/.sbclrc ;
     echo ==== .sbclrc ===================================================================
     cat ~/.sbclrc
-    if test -f ./prep.sh; then
+    pwd
+    ls -l ..
+    if test -f ../prep.sh; then
        echo ==== Running prep.sh script ====================================================;
-       ./prep.sh;
+       ../prep.sh;
     fi
     # Build each system
     for S in ${SYSTEMS}; do
