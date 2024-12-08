@@ -5,13 +5,13 @@ MAINTAINER Anthony Green <green@moxielogic.com>
 ENV LC_ALL=C.utf8 \
     LANG=C.utf8 \
     LANGUAGE=C.utf8 \
-    SBCL_VERSION=2.4.7 \
+    SBCL_VERSION=2.4.11 \
     REKOR_VERSION=1.3.7 \
-    DUCKDB_VERSION=1.1.1 \
-    RAYLIB_VERSION=5.0 \
+    DUCKDB_VERSION=1.1.3 \
+    RAYLIB_VERSION=5.5 \
     BB_PYTHON3_INCLUDE_DIR=/usr/include/python3.10 \
     BB_PYTHON3_DYLIB=/usr/lib/x86_64-linux-gnu/libpython3.10.so \
-    ORAS_VERSION="1.2.0"
+    ORAS_VERSION="1.2.1"
 
 RUN apt-get update \
     && apt-get install -y libffi-dev libclblas-dev libuv1-dev \
@@ -33,7 +33,7 @@ RUN apt-get update \
                           librocksdb-dev libtree-sitter-dev portaudio19-dev \
                           libportmidi-dev libfftw3-dev liblilv-dev \
                           libenchant-2-dev libassimp-dev librdkafka-dev \
-                          cmake
+                          cmake libabsl-dev
 
 
 RUN curl -LO "https://github.com/oras-project/oras/releases/download/v${ORAS_VERSION}/oras_${ORAS_VERSION}_linux_amd64.tar.gz" \
