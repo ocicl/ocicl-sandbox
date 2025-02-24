@@ -33,6 +33,8 @@ ocicl version
 
 cd /github/workspace
 
+ls -l
+
 grep "| source" README.org;
 if [ $? -eq 0 ]; then
     NAME=$(head -1 README.org | cut -d\  -f2) ;
