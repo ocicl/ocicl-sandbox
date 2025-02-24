@@ -54,6 +54,7 @@ if [ $? -eq 0 ]; then
              echo ${NAME} > _00_OCICL_NAME
              git reset --hard ${COMMIT} ;
              rm -rf .git* ;
+             if test -f ../prep.sh ; then ../prep.sh ; fi
              cd .. ;
              tar cvfz ${NAME}-${VERSION}.tar.gz ${SRCDIR} ;
              ;;
@@ -72,6 +73,7 @@ if [ $? -eq 0 ]; then
              retry_command0 git lfs fetch ;
              retry_command0 git lfs checkout ;
              rm -rf .git* ;
+             if test -f ../prep.sh ; then ../prep.sh ; fi
              cd .. ;
              tar cvfz ${NAME}-${VERSION}.tar.gz ${SRCDIR} ;
              ;;
@@ -82,9 +84,11 @@ if [ $? -eq 0 ]; then
               SRCDIR=$(ls) ;
               mv ${SRCDIR} tmpname
               mv tmpname ${NAME}-${VERSION} ;
-              SRCDIR=$(ls) ;
+              cd ${SRCDIR}
               echo ${VERSION} > _00_OCICL_VERSION
               echo ${NAME} > _00_OCICL_NAME
+              if test -f ../prep.sh ; then ../prep.sh ; fi
+              cd .. ;
               tar cvfz ${NAME}-${VERSION}.tar.gz ${SRCDIR} ;
               ;;
         *) echo Unrecognized PROTOCOL ${PROTOCOL} ;
@@ -94,12 +98,6 @@ if [ $? -eq 0 ]; then
     echo "(asdf:initialize-source-registry '(:source-registry :ignore-inherited-configuration (:tree #p\"$(cd ${SRCDIR}; pwd)/\")))" >> ~/.sbclrc ;
     echo ==== .sbclrc ===================================================================
     cat ~/.sbclrc
-    pwd
-    ls -l ..
-    if test -f ../prep.sh; then
-       echo ==== Running prep.sh script ====================================================;
-       ../prep.sh;
-    fi
     # Build each system
     for S in ${SYSTEMS}; do
         echo ================================================================================
