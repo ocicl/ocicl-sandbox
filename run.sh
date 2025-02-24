@@ -56,7 +56,7 @@ if [ $? -eq 0 ]; then
              echo ${NAME} > _00_OCICL_NAME
              git reset --hard ${COMMIT} ;
              rm -rf .git* ;
-             if test -f ../prep.sh ; then ../prep.sh ; fi
+             /github/workspace/prep.sh || true ;
              cd .. ;
              tar cvfz ${NAME}-${VERSION}.tar.gz ${SRCDIR} ;
              ;;
@@ -75,7 +75,7 @@ if [ $? -eq 0 ]; then
              retry_command0 git lfs fetch ;
              retry_command0 git lfs checkout ;
              rm -rf .git* ;
-             if test -f ../prep.sh ; then ../prep.sh ; fi
+             /github/workspace/prep.sh || true ;
              cd .. ;
              tar cvfz ${NAME}-${VERSION}.tar.gz ${SRCDIR} ;
              ;;
@@ -89,7 +89,7 @@ if [ $? -eq 0 ]; then
               cd ${SRCDIR}
               echo ${VERSION} > _00_OCICL_VERSION
               echo ${NAME} > _00_OCICL_NAME
-              if test -f ../prep.sh ; then ../prep.sh ; fi
+              /github/workspace/prep.sh || true ;
               cd .. ;
               tar cvfz ${NAME}-${VERSION}.tar.gz ${SRCDIR} ;
               ;;
