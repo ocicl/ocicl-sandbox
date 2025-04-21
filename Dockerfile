@@ -33,7 +33,7 @@ RUN apt-get update \
                           librocksdb-dev libtree-sitter-dev portaudio19-dev \
                           libportmidi-dev libfftw3-dev liblilv-dev \
                           libenchant-2-dev libassimp-dev librdkafka-dev \
-                          cmake libabsl-dev libz3-dev libsdl3-dev
+                          cmake libabsl-dev libz3-dev libsdl3-dev libsdl3-image-dev
 
 
 RUN curl -LO "https://github.com/oras-project/oras/releases/download/v${ORAS_VERSION}/oras_${ORAS_VERSION}_linux_amd64.tar.gz" \
