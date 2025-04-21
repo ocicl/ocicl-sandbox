@@ -1,11 +1,11 @@
-FROM ubuntu:jammy
+FROM ubuntu:plucky
 
 MAINTAINER Anthony Green <green@moxielogic.com>
 
 ENV LC_ALL=C.utf8 \
     LANG=C.utf8 \
     LANGUAGE=C.utf8 \
-    SBCL_VERSION=2.4.11 \
+    SBCL_VERSION=2.5.3 \
     REKOR_VERSION=1.3.7 \
     DUCKDB_VERSION=1.1.3 \
     RAYLIB_VERSION=5.5 \
@@ -33,7 +33,7 @@ RUN apt-get update \
                           librocksdb-dev libtree-sitter-dev portaudio19-dev \
                           libportmidi-dev libfftw3-dev liblilv-dev \
                           libenchant-2-dev libassimp-dev librdkafka-dev \
-                          cmake libabsl-dev libz3-dev
+                          cmake libabsl-dev libz3-dev libsdl3-dev
 
 
 RUN curl -LO "https://github.com/oras-project/oras/releases/download/v${ORAS_VERSION}/oras_${ORAS_VERSION}_linux_amd64.tar.gz" \
