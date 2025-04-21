@@ -17,7 +17,7 @@ RUN apt-get update \
     && apt-get install -y libffi-dev libclblas-dev libuv1-dev \
                           libev-dev libglu-dev freeglut3-dev libgl1-mesa-dev \
                           libglfw3-dev libunac1-dev libtidy-dev \
-                          libfixposix-dev golang-1.20 ca-certificates curl \
+                          libfixposix-dev golang ca-certificates curl \
                           git git-lfs protobuf-compiler \
                           make python3-dev libmysqlclient-dev libgit2-dev \
                           libyaml-dev libzmq3-dev libgsl-dev libhdf5-dev unzip \
