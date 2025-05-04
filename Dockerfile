@@ -33,9 +33,39 @@ RUN apt-get update \
                           librocksdb-dev libtree-sitter-dev portaudio19-dev \
                           libportmidi-dev libfftw3-dev liblilv-dev \
                           libenchant-2-dev libassimp-dev librdkafka-dev \
-                          cmake libabsl-dev libz3-dev \
-                          libsdl3-dev libsdl3-image-dev libsdl3-ttf-dev
+                          cmake libabsl-dev libz3-dev
 
+RUN git clone https://github.com/libsdl-org/SDL.git \
+    && cd SDL \
+    && cmake -S . -B build \
+    && make -C build && make -C build install \
+    && cp -rf build/libSDL3.so* /usr/lib/x86_64-linux-gnu/ \
+    && cd .. \
+    && rm -rf SDL
+
+RUN git clone https://github.com/libsdl-org/SDL_ttf.git \
+    && cd SDL_ttf \
+    && cmake -S . -B build \
+    && make -C build && make -C build install \
+    && cp -rf build/libSDL3_ttf.so* /usr/lib/x86_64-linux-gnu/ \
+    && cd .. \
+    && rm -rf SDL_ttf
+
+RUN git clone https://github.com/libsdl-org/SDL_image.git \
+    && cd SDL_image \
+    && cmake -S . -B build \
+    && make -C build && make -C build install \
+    && cp -rf build/libSDL3_image.so.* /usr/lib/x86_64-linux-gnu/ \
+    && cd .. \
+    && rm -rf SDL_image
+
+RUN git clone https://github.com/libsdl-org/SDL_mixer.git \
+    && cd SDL_mixer \
+    && cmake -S . -B build \
+    && make -C build && make -C build install \
+    && cp -rf build/libSDL3_mixer.so.* /usr/lib/x86_64-linux-gnu/ \
+    && cd .. \
+    && rm -rf SDL_mixer
 
 RUN curl -LO "https://github.com/oras-project/oras/releases/download/v${ORAS_VERSION}/oras_${ORAS_VERSION}_linux_amd64.tar.gz" \
     && mkdir -p oras-install/ \
