@@ -9,6 +9,7 @@ ENV LC_ALL=C.utf8 \
     REKOR_VERSION=1.3.7 \
     DUCKDB_VERSION=1.1.3 \
     RAYLIB_VERSION=5.5 \
+    TREESITTER_VERSION=0.25.3 \
     BB_PYTHON3_INCLUDE_DIR=/usr/include/python3.10 \
     BB_PYTHON3_DYLIB=/usr/lib/x86_64-linux-gnu/libpython3.10.so \
     ORAS_VERSION="1.2.1"
@@ -34,6 +35,13 @@ RUN apt-get update \
                           libportmidi-dev libfftw3-dev liblilv-dev \
                           libenchant-2-dev libassimp-dev librdkafka-dev \
                           cmake libabsl-dev libz3-dev
+
+RUN wget https://github.com/tree-sitter/tree-sitter/archive/refs/tags/v${TREESITTER_VERSION}.tar.gz \
+    && cd tree-sitter-${TREESITTER_VERSION} \
+    && make \
+    && make install \
+    && cd .. \
+    && rm -rf tree-sitter-${TREESITTER_VERSION}
 
 RUN git clone https://github.com/libsdl-org/SDL.git \
     && cd SDL \
