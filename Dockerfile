@@ -38,11 +38,13 @@ RUN apt-get update \
                           libacl1-dev libcap-dev
 
 RUN wget https://github.com/tree-sitter/tree-sitter/archive/refs/tags/v${TREESITTER_VERSION}.tar.gz \
+    && tar -xzf v${TREESITTER_VERSION}.tar.gz \
     && cd tree-sitter-${TREESITTER_VERSION} \
     && make \
     && make install \
+    && ldconfig \
     && cd .. \
-    && rm -rf tree-sitter-${TREESITTER_VERSION}
+    && rm -rf tree-sitter-${TREESITTER_VERSION} v${TREESITTER_VERSION}.tar.gz
 
 RUN git clone https://github.com/libsdl-org/SDL.git \
     && cd SDL \
