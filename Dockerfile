@@ -34,7 +34,8 @@ RUN apt-get update \
                           librocksdb-dev libtree-sitter-dev portaudio19-dev \
                           libportmidi-dev libfftw3-dev liblilv-dev \
                           libenchant-2-dev libassimp-dev librdkafka-dev \
-                          cmake libabsl-dev libz3-dev
+                          cmake libabsl-dev libz3-dev \
+                          libacl1-dev libcap-dev
 
 RUN wget https://github.com/tree-sitter/tree-sitter/archive/refs/tags/v${TREESITTER_VERSION}.tar.gz \
     && cd tree-sitter-${TREESITTER_VERSION} \
